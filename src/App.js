@@ -1,25 +1,20 @@
-import logo from './logo.svg';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
+import { CreateGroup } from './components/CreateGroup';
+import { AddMembers } from './components/AddMembers';
+import { ExpenseMain } from './components/ExpenseMain';
+import { RecoilRoot } from 'recoil';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => (
+  <BrowserRouter>
+  <RecoilRoot>
+    <Routes>
+      <Route path="/" element={<CreateGroup />} />
+      <Route path="/members" element={<AddMembers />} />
+      <Route path="/expense" element={<ExpenseMain />} />
+    </Routes>
+  </RecoilRoot>
+  </BrowserRouter>
+)
 
 export default App;
