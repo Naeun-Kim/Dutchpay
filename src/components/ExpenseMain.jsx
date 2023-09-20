@@ -1,8 +1,12 @@
+import { AddExpenseForm } from './AddExpenseForm';
+
 export const ExpenseMain = () => {
-    return (
-        <div>Expense Main Component
-            <div>Left pane</div>
-            <div>Right pane</div>
-        </div>
-    )
-}
+  return (
+    <div>
+      <div>
+        <AddExpenseForm />
+      </div>
+      {/* <div>Right pane</div> */}
+    </div>
+  );
+};
