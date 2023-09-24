@@ -3,6 +3,7 @@ import { Button, Col, Form, Row } from 'react-bootstrap';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { groupMembersState } from '../state/groupMembers';
+import { expensesState } from '../state/expenses';
 
 export const AddExpenseForm = () => {
   const members = useRecoilValue(groupMembersState);
@@ -19,6 +20,8 @@ export const AddExpenseForm = () => {
   const [isPayerValid, setIsPayerValid] = useState(false);
   const [isAmountValid, setIsAmountValid] = useState(false);
 
+  const setExpense = useSetRecoilState(expensesState);
+
   const checkValidity = () => {
     const descValid = desc.length > 0;
     const payerValid = payer !== null;
@@ -31,9 +34,23 @@ export const AddExpenseForm = () => {
     return descValid && payerValid && amountValid;
   };
 
+  const saveExpense = (expense) => {
+    setExpense((expenses) => [...expenses, expense]);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     event.stopPropagation();
+
+    if (checkValidity) {
+      const newExpense = {
+        date,
+        desc,
+        payer,
+        amount,
+      };
+      saveExpense(newExpense);
+    }
 
     setValidated(true);
   };
@@ -101,6 +118,7 @@ export const AddExpenseForm = () => {
                 <option disabled value="">
                   누가 결제했나요?
                 </option>
+                <option>영수</option>
                 {members.map((member) => (
                   <option key={member} value={member}>
                     {member}
