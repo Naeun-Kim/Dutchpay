@@ -118,7 +118,10 @@ export const AddExpenseForm = () => {
                 <option disabled value="">
                   누가 결제했나요?
                 </option>
-                <option>영수</option>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+                <option>D</option>
                 {members.map((member) => (
                   <option key={member} value={member}>
                     {member}

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { AddExpenseForm } from './AddExpenseForm';
 import { ExpenseTable } from './ExpenseTable';
 import { ServiceLogo } from './shared/ServiceLogo';
+import { SettlementSummary } from './SettlementSummary';
 
 export const ExpenseMain = () => {
   return (
@@ -30,7 +31,7 @@ const LeftPane = () => {
           <AddExpenseForm />
         </Row>
         <Row>
-          <span>정산은 이렇게!</span>
+          <SettlementSummary />
         </Row>
       </StyledGapRow>
     </Container>
