@@ -1,6 +1,7 @@
 import { useRef } from 'react';
+import { toPng } from 'html-to-image';
 import { Button } from 'react-bootstrap';
-// import { Download } from 'react-bootstrap-icons';
+import { Download } from 'react-bootstrap-icons';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { expensesState } from '../state/expenses';
@@ -90,8 +91,30 @@ export const SettlementSummary = () => {
     splitAmount
   );
 
+  const summaryEl = useRef(null);
+  const exportToImage = async () => {
+    if (summaryEl.current === null) {
+      return;
+    }
+
+    const filter = (node) => {
+      return node.tagName !== 'BUTTON';
+    };
+
+    toPng(summaryEl.current, { filter: filter })
+      .then((dataUrl) => {
+        const link = document.createElement('a');
+        link.download = 'settlement-summary.png';
+        link.href = dataUrl;
+        link.click();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
-    <StyledWrapper>
+    <StyledWrapper ref={summaryEl}>
       <StyledTitle>2. 정산은 이렇게!</StyledTitle>
       {totalExpenseAmount > 0 && groupMembersCount > 0 && (
         <>
@@ -112,9 +135,9 @@ export const SettlementSummary = () => {
               </li>
             ))}
           </StyledUl>
-          {/* <StyledButton data-testid="btn-download">
+          <StyledButton data-testid="download" onClick={exportToImage}>
             <Download />
-          </StyledButton> */}
+          </StyledButton>
         </>
       )}
     </StyledWrapper>

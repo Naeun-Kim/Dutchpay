@@ -145,5 +145,12 @@ describe('비용 정산 메인 페이지', () => {
         screen.getByText(/영희가 영수에세 15000원 보내기/i);
       expect(transactionText).toBeInTheDocument();
     });
+
+    test('다운로드 아이콘을 클릭했을 때, 정산 결과 이미지 파일이 다운로드되는가?', async () => {
+      const downloadIcon = screen.getByTestId('download');
+      expect(downloadIcon).toBeInTheDocument();
+      await userEvent.click(downloadIcon);
+      //TODO: 이미지 파일이 다운로드 되는가?
+    });
   });
 });
